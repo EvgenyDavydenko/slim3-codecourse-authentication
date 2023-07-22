@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>User List</h1>
+<ul>
+    <li><a href="{{ path_for('profile', { 'name': 'vasya' }) }}">Vasya</a></li>
+    <li><a href="{{ path_for('profile', { 'name': 'masha' }) }}">Masha</a></li>
+</ul>
+{% endblock %}
