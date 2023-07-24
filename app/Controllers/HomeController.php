@@ -14,11 +14,11 @@ class HomeController {
     }
 
     public function index(Request $request, Response $response, array $args){
-        return $this->view->render($response, 'list.html');
+        return $this->view->render($response, 'list.twig');
     }
 
     public function profile(Request $request, Response $response, array $args){
-        return $this->view->render($response, 'profile.html', [
+        return $this->view->render($response, 'profile.twig', [
             'name' => $args['name']
         ]);
     }
