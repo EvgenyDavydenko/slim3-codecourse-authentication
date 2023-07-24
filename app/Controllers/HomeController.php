@@ -6,19 +6,22 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 class HomeController {
 
-    protected $view;
+    protected $c;
 
-    public function __construct(\Slim\Views\Twig $view)
+    public function __construct($container)
     {
-        $this->view = $view;
+        $this->c = $container;
     }
 
     public function index(Request $request, Response $response, array $args){
-        return $this->view->render($response, 'list.twig');
+        // $user = $this->c->db->table('users')->find(1);
+        // var_dump($user->email);
+        // exit;
+        return $this->c->view->render($response, 'list.twig');
     }
 
     public function profile(Request $request, Response $response, array $args){
-        return $this->view->render($response, 'profile.twig', [
+        return $this->c->view->render($response, 'profile.twig', [
             'name' => $args['name']
         ]);
     }
