@@ -4,14 +4,7 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-class HomeController {
-
-    protected $c;
-
-    public function __construct($container)
-    {
-        $this->c = $container;
-    }
+class HomeController extends Controller {
 
     public function index(Request $request, Response $response, array $args){
         // $user = $this->c->db->table('users')->find(1);
