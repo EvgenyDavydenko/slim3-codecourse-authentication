@@ -11,7 +11,7 @@ class Validator
 	public function validate($request)
 	{
         $rules = [
-			'email' => v::noWhitespace()->notEmpty(),
+			'email' => v::noWhitespace()->notEmpty()->email(),
 			'name' => v::notEmpty()->alpha(),
 			'password' => v::noWhitespace()->notEmpty(),
 		];
@@ -21,6 +21,7 @@ class Validator
 				$rule->setName(ucfirst($field))->assert($request->getParam($field));
 			} catch (NestedValidationException $e) {
 				$this->errors[$field] = $e->getMessages();
+				$_SESSION['errors'] = $this->errors;
 			}
 		}
 
