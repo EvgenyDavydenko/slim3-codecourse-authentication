@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+
 use App\Models\User;
 
 class AuthController extends Controller {
@@ -12,6 +13,12 @@ class AuthController extends Controller {
     }
 
     public function postSignup(Request $request, Response $response, array $args){
+        $validation = $this->c->validator->validate($request);
+
+		if ($validation->failed()) {
+			return $response->withRedirect($this->c->router->pathFor('signup'));
+		}
+        
         // var_dump($request->getParams());
         // exit;
         $user = User::create([
