@@ -1,8 +1,15 @@
 <?php
 
 namespace App\Validation;
+use Respect\Validation\Factory;
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\NestedValidationException;
+
+Factory::setDefaultInstance(
+    (new Factory())
+        ->withRuleNamespace('App\\Validation\\Rules')
+        ->withExceptionNamespace('App\\Validation\\Exceptions')
+);
 
 class Validator
 {
@@ -11,7 +18,7 @@ class Validator
 	public function validate($request)
 	{
         $rules = [
-			'email' => v::noWhitespace()->notEmpty()->email(),
+			'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
 			'name' => v::notEmpty()->alpha(),
 			'password' => v::noWhitespace()->notEmpty(),
 		];
