@@ -2,7 +2,6 @@
 
 namespace App\Validation;
 use Respect\Validation\Factory;
-use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\NestedValidationException;
 
 Factory::setDefaultInstance(
@@ -15,14 +14,8 @@ class Validator
 {
 	protected $errors;
 
-	public function validate($request)
+	public function validate($request, array $rules)
 	{
-        $rules = [
-			'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
-			'name' => v::notEmpty()->alpha(),
-			'password' => v::noWhitespace()->notEmpty(),
-		];
-
 		foreach ($rules as $field => $rule) {
 			try {
 				$rule->setName(ucfirst($field))->assert($request->getParam($field));

@@ -3,7 +3,7 @@
 namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-
+use Respect\Validation\Validator as v;
 use App\Models\User;
 
 class AuthController extends Controller {
@@ -39,7 +39,11 @@ class AuthController extends Controller {
     }
 
     public function postSignUp(Request $request, Response $response, array $args){
-        $validation = $this->c->validator->validate($request);
+        $validation = $this->c->validator->validate($request, [
+			'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
+			'name' => v::notEmpty()->alpha(),
+			'password' => v::noWhitespace()->notEmpty(),
+		]);
 
 		if ($validation->failed()) {
             $this->c->flash->addMessage('error', 'Не верно ввели данные формы');
