@@ -10,11 +10,11 @@ class HomeController extends Controller {
         // $user = $this->c->db->table('users')->find(1);
         // var_dump($user->email);
         // exit;
-        return $this->c->view->render($response, 'list.twig');
+        return $this->c->view->render($response, 'home/list.twig');
     }
 
     public function profile(Request $request, Response $response, array $args){
-        return $this->c->view->render($response, 'profile.twig', [
+        return $this->c->view->render($response, 'home/profile.twig', [
             'name' => $args['name']
         ]);
     }

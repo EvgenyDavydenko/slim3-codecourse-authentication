@@ -16,7 +16,7 @@ class AuthController extends Controller {
 	}
 
     public function getSignIn(Request $request, Response $response, array $args){
-        return $this->c->view->render($response, 'signin.twig');
+        return $this->c->view->render($response, 'auth/signin.twig');
     }
 
     public function postSignIn(Request $request, Response $response, array $args){
@@ -35,7 +35,7 @@ class AuthController extends Controller {
     }
 
     public function getSignUp(Request $request, Response $response, array $args){
-        return $this->c->view->render($response, 'signup.twig');
+        return $this->c->view->render($response, 'auth/signup.twig');
     }
 
     public function postSignUp(Request $request, Response $response, array $args){
