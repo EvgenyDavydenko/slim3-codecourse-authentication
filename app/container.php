@@ -31,12 +31,16 @@ $container['view'] = function ($container) {
 };
 
 $container['validator'] = function ($container) {
-	return new App\Validation\Validator;
+	return new \App\Validation\Validator;
 };
 
 // add Slim CSRF
 $container['csrf'] = function ($container) {
 	return new \Slim\Csrf\Guard;
+};
+
+$container['auth'] = function ($container) {
+	return new \App\Auth\Auth;
 };
 
 $container['HomeController'] = function ($container) {
