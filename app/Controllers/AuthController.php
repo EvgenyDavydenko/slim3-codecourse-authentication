@@ -8,11 +8,19 @@ use App\Models\User;
 
 class AuthController extends Controller {
 
-    public function getSignup(Request $request, Response $response, array $args){
+    public function getSignIn(Request $request, Response $response, array $args){
+        return $this->c->view->render($response, 'signin.twig');
+    }
+
+    public function postSignIn(Request $request, Response $response, array $args){
+        return $response->withRedirect($this->c->router->pathFor('home'));
+    }
+
+    public function getSignUp(Request $request, Response $response, array $args){
         return $this->c->view->render($response, 'signup.twig');
     }
 
-    public function postSignup(Request $request, Response $response, array $args){
+    public function postSignUp(Request $request, Response $response, array $args){
         $validation = $this->c->validator->validate($request);
 
 		if ($validation->failed()) {
