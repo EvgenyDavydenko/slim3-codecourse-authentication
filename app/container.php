@@ -20,6 +20,11 @@ $container['auth'] = function ($container) {
 	return new \App\Auth\Auth;
 };
 
+// add Slim Flash messages
+$container['flash'] = function () {
+    return new \Slim\Flash\Messages();
+};
+
 // Register component on container
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/../views', [
@@ -36,6 +41,9 @@ $container['view'] = function ($container) {
 		'check' => $container->auth->check(),
 		'user' => $container->auth->user()
 	]);
+
+    // let the view have access to flash messages
+	$view->getEnvironment()->addGlobal('flash', $container->flash);
 
     return $view;
 };

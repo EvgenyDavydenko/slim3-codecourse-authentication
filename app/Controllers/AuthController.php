@@ -11,6 +11,7 @@ class AuthController extends Controller {
     public function getSignOut($request, $response)
 	{
 		$this->c->auth->logout();
+        $this->c->flash->addMessage('info', 'Вы вышли из аккаунта');
 		return $response->withRedirect($this->c->router->pathFor('home'));
 	}
 
@@ -26,8 +27,10 @@ class AuthController extends Controller {
 		);
 
         if (!$auth) {
+            $this->c->flash->addMessage('error', 'Нет такого пользователя');
 			return $response->withRedirect($this->c->router->pathFor('signin'));
 		}
+        $this->c->flash->addMessage('success', 'Вы вошли в аккаунт');
         return $response->withRedirect($this->c->router->pathFor('home'));
     }
 
@@ -39,6 +42,7 @@ class AuthController extends Controller {
         $validation = $this->c->validator->validate($request);
 
 		if ($validation->failed()) {
+            $this->c->flash->addMessage('error', 'Не верно ввели данные формы');
 			return $response->withRedirect($this->c->router->pathFor('signup'));
 		}
         
@@ -49,6 +53,8 @@ class AuthController extends Controller {
 			'name' => $request->getParam('name'),
 			'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
 		]);
+
+        $this->c->flash->addMessage('info', 'Вы зарегистрированы');
 
         // log the user directly in
 		$this->c->auth->attempt($user->email, $request->getParam('password'));
