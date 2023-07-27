@@ -9,3 +9,5 @@ $app->post('/auth/signup', 'AuthController:postSignUp')->setName('signup');
 
 $app->get('/auth/signin', 'AuthController:getSignIn');
 $app->post('/auth/signin', 'AuthController:postSignIn')->setName('signin');
+
+$app->get('/auth/signout', 'AuthController:getSignOut')->setName('signout');
